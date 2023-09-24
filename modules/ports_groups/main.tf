@@ -1,12 +1,5 @@
 
-data "vsphere_datacenter" "datacenter" {
-  name = var.vsphere_host_name
-}
 
-data "vsphere_host" "esxi_host" {
-  name          = var.vsphere_host_name
-  datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
-}
 
 // Creating VLan1 
 resource "vsphere_host_port_group" "port-group01" {

@@ -5,7 +5,7 @@ provider "vsphere" {
   allow_unverified_ssl = true
 }
 
-
+ 
 data "vsphere_datacenter" "datacenter" {
   name = var.vsphere_host_name
 }
@@ -22,20 +22,10 @@ data "vsphere_host" "esxi_host" {
 module "ports_groups" {
   source = "./modules/ports_groups"
 }
-
+/*
 module "VMs" {
   source = "./modules/VMs"
-}
-
-
-
-/*
-resource "vsphere_host_virtual_switch" "My_vSwitch"{
-  name="My_vSwitch"
-   host_system_id = "${data.vsphere_host.esxi_host.id}"
-
-  network_adapters = ["vmnic0"]
-
-  active_nics  = ["vmnic0"]
- 
 }*/
+
+
+
