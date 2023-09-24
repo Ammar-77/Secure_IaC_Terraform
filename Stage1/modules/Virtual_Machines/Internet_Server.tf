@@ -5,8 +5,8 @@ data "vsphere_network" "network06" {
 }
 
 
-resource "vsphere_virtual_machine" "Internal_Gateway" {
-  name             = "Internal Gateway"
+resource "vsphere_virtual_machine" "ISP" {
+  name             = "ISP - Internet Provider"
   resource_pool_id = data.vsphere_host.esxi_host.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = 2

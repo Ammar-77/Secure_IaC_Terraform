@@ -1,12 +1,12 @@
 
 data "vsphere_network" "network05" {
-  name          = "Internal_Facing_LAN"
+  name          = "Backend_LAN"
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
 }
 
 
-resource "vsphere_virtual_machine" "Internal_Gateway" {
-  name             = "Internal Gateway"
+resource "vsphere_virtual_machine" "Internal_Gateway_Server" {
+  name             = "Internal_Gateway_Server"
   resource_pool_id = data.vsphere_host.esxi_host.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = 2

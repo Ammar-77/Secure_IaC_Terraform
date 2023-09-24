@@ -19,13 +19,11 @@ data "vsphere_host" "esxi_host" {
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
 }
 
-module "ports_groups" {
-  source = "./modules/ports_groups"
-}
 /*
-module "VMs" {
-  source = "./modules/VMs"
-}*/
+module "Virtual_Networks" {
+  source = "./modules/Virtual_Machines"
+}
+*/
 
 
 

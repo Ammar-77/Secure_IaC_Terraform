@@ -59,7 +59,7 @@ resource "vsphere_host_port_group" "port-group04" {
 
 //// Internal_Facing_LAN
 resource "vsphere_host_port_group" "port-group06" {
-  name = "Internal_Facing_LAN"
+  name = "Backend_LAN"
   host_system_id = data.vsphere_host.esxi_host.id
   virtual_switch_name = "vSwitch0"
   vlan_id = 5

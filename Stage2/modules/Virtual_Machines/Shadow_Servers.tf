@@ -1,11 +1,5 @@
-/*
-resource "vsphere_host_port_group" "port-group04" {
-  name = "VLAN04-shadowIT"
-  host_system_id = data.vsphere_host.esxi_host.id
-  virtual_switch_name = "vSwitch0"
-  vlan_id = 4
-}
-*/
+
+
 data "vsphere_network" "network04" {
   name          = "Shadow_LAN"
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
