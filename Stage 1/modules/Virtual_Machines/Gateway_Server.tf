@@ -1,62 +1,76 @@
 
-data "vsphere_network" "network05" {
+data "vsphere_network" "Backend_LAN" {
   name          = "Backend_LAN"
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
 }
-data "vsphere_network" "network03" {
+data "vsphere_network" "Web_LAN" {
   name          = "Web_LAN"
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
 }
-data "vsphere_network" "network04" {
+data "vsphere_network" "Shadow_LAN" {
   name          = "Shadow_LAN"
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
 }
-data "vsphere_network" "network01" {
-  name          = "DB_LAN"
+data "vsphere_network" "DBs_LAN" {
+  name          = "DBs_LAN"
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
 }
 
-data "vsphere_network" "network02" {
-  name          = "App_LAN"
+data "vsphere_network" "APPs_LAN" {
+  name          = "APPs_LAN"
+  datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
+}
+data "vsphere_network" "ISPs_LAN" {
+  name          = "ISPs_LAN"
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
 }
 
-data "vsphere_network" "network0011" {
+data "vsphere_network" "Management_LAN" {
+  name          = "Management_LAN"
+  datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
+} 
+/* the DevOps server should be on it after it is intlizaied with all the 
+softtwares that it need , the mangment LAN is essential for building the enviroemnt 
+*/
+
+/*data "vsphere_network" "VM_Network" {
   name          = "VM Network"
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
-}
+}  */ //// replaced by the mnangement lan 
 
 
-resource "vsphere_virtual_machine" "Internal_Gateway_Server" {
-  name             = "Internal_Gateway_Server"
+resource "vsphere_virtual_machine" "Gateway_Server" {
+  name             = "Backend_Gateway_Server"
   resource_pool_id = data.vsphere_host.esxi_host.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = 2
   memory           = 2048
   guest_id         = "other3xLinux64Guest"
+ 
   network_interface {
-    network_id = data.vsphere_network.network05.id
+    network_id = data.vsphere_network.Backend_LAN.id
+ 
   }
   network_interface {
-    network_id = data.vsphere_network.network01.id
+    network_id = data.vsphere_network.DBs_LAN.id
   }
   network_interface {
-    network_id = data.vsphere_network.network02.id
+    network_id = data.vsphere_network.APPs_LAN.id
   }
   network_interface {
-    network_id = data.vsphere_network.network03.id
+    network_id = data.vsphere_network.Web_LAN.id
   }
   network_interface {
-    network_id = data.vsphere_network.network04.id
+    network_id = data.vsphere_network.Shadow_LAN.id
+  }
+  
+  network_interface {
+    network_id = data.vsphere_network.ISPs_LAN.id
   }
 
   network_interface {
-    network_id = data.vsphere_network.network0011.id
-  } // to connect to the DevOps server ....... 
-
-network_interface {
-    network_id = data.vsphere_network.network06.id
-  } // to connect to the ISP server lan ....... 
+    network_id = data.vsphere_network.Management_LAN.id
+  } 
 
 
  disk {
@@ -68,8 +82,9 @@ network_interface {
  cdrom {
    
     datastore_id  = data.vsphere_datastore.datastore.id
-    path          = "./myISOfiles/ubuntu-23.04-desktop-amd64.iso"
+    path          = "./myISOfiles/ubuntu-22.04.3-live-server-amd64.iso"
   }
+  
 }
 
 resource "vsphere_virtual_machine" "DHCP_Server" {
@@ -80,7 +95,7 @@ resource "vsphere_virtual_machine" "DHCP_Server" {
   memory           = 2048
   guest_id         = "other3xLinux64Guest"
   network_interface {
-    network_id = data.vsphere_network.network05.id
+    network_id = data.vsphere_network.Backend_LAN.id
   }
  disk {
     label = "disk0"
@@ -88,7 +103,7 @@ resource "vsphere_virtual_machine" "DHCP_Server" {
   }
   scsi_type = "lsilogic-sas"
   sata_controller_count = 1
-   cdrom {
+  cdrom {
    
     datastore_id  = data.vsphere_datastore.datastore.id
     path          = "./myISOfiles/ubuntu-23.04-desktop-amd64.iso"

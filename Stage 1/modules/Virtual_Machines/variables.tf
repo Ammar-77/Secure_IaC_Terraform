@@ -18,8 +18,3 @@ variable "vsphere_server" {
 variable "vsphere_host_name" {
   default     = "server137.letterkenny.ads.kmn.ie"
 }
-/*
-import {
-  to = data.vsphere_host.esxi_host.Vswitch
-  id = "i-abcd1234"
-}*/

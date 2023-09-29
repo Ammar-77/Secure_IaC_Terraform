@@ -17,16 +17,10 @@ data "vsphere_host" "esxi_host" {
 
 ///  resource creating 
 
-resource "vsphere_host_port_group" "port-group05" {
-  name = "Internet_Facing_LAN"
-  host_system_id = data.vsphere_host.esxi_host.id
-  virtual_switch_name = "vSwitch0"
-  vlan_id = 0
-} 
 
 // Creating DB_LAN
 resource "vsphere_host_port_group" "port-group01" {
-  name = "DB_LAN"
+  name = "DBs_LAN"
   host_system_id = data.vsphere_host.esxi_host.id
   virtual_switch_name = "vSwitch0"
   vlan_id = 1
@@ -34,7 +28,7 @@ resource "vsphere_host_port_group" "port-group01" {
 
 // Creating App_LAN
 resource "vsphere_host_port_group" "port-group02" {
-  name = "App_LAN"
+  name = "APPs_LAN"
   host_system_id = data.vsphere_host.esxi_host.id
   virtual_switch_name = "vSwitch0"
   vlan_id = 2
@@ -56,11 +50,27 @@ resource "vsphere_host_port_group" "port-group04" {
   vlan_id = 4
 }
 
+// Creating ISPs_LAN
+resource "vsphere_host_port_group" "port-group05" {
+  name = "ISPs_LAN"
+  host_system_id = data.vsphere_host.esxi_host.id
+  virtual_switch_name = "vSwitch0"
+  vlan_id = 0
+} 
 
-//// Internal_Facing_LAN
+
+//// Inner_LAN
 resource "vsphere_host_port_group" "port-group06" {
   name = "Backend_LAN"
   host_system_id = data.vsphere_host.esxi_host.id
   virtual_switch_name = "vSwitch0"
   vlan_id = 5
+}
+
+//// Inner_LAN
+resource "vsphere_host_port_group" "port-group07" {
+  name = "Management_LAN"
+  host_system_id = data.vsphere_host.esxi_host.id
+  virtual_switch_name = "vSwitch0"
+  vlan_id = 7
 }

@@ -19,7 +19,7 @@ data "vsphere_host" "esxi_host" {
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
 }
 
-module "Virtual_Networks" {
+module "Virtual_Machines" {
   source = "./modules/Virtual_Machines"
 }
 
