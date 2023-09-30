@@ -1,6 +1,6 @@
 
 
-data "vsphere_network" "network04" {
+data "vsphere_network" "Shadow_LAN" {
   name          = "Shadow_LAN"
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
 }
@@ -15,7 +15,7 @@ resource "vsphere_virtual_machine" "Web_Server01" {
   memory           = 2048
   guest_id         = "other3xLinux64Guest"
   network_interface {
-    network_id = data.vsphere_network.network03.id
+    network_id = data.vsphere_network.Shadow_LAN.id
   }
  disk {
     label = "disk0"
@@ -38,7 +38,7 @@ resource "vsphere_virtual_machine" "Web_Server02" {
   memory           = 2048
   guest_id         = "other3xLinux64Guest"
   network_interface {
-    network_id = data.vsphere_network.network03.id
+    network_id = data.vsphere_network.Shadow_LAN.id
   }
  disk {
     label = "disk0"
@@ -61,7 +61,7 @@ resource "vsphere_virtual_machine" "Web_Server03" {
   memory           = 2048
   guest_id         = "other3xLinux64Guest"
   network_interface {
-    network_id = data.vsphere_network.network03.id
+    network_id = data.vsphere_network.Shadow_LAN.id
   }
  disk {
     label = "disk0"
@@ -86,7 +86,7 @@ resource "vsphere_virtual_machine" "Web_Load_Balancer01" {
   memory           = 1024
   guest_id         = "other3xLinux64Guest"
   network_interface {
-    network_id = data.vsphere_network.network03.id
+    network_id = data.vsphere_network.Shadow_LAN.id
   }
  disk {
     label = "disk0"
