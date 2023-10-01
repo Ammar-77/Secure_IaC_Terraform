@@ -28,4 +28,3 @@ resource "vsphere_virtual_machine" "Web_Server01" {
     path          = "./myISOfiles/ubuntu-22.04.3-live-server-amd64.iso"
   }
 }
-
