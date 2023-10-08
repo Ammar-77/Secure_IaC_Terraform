@@ -67,10 +67,10 @@ resource "vsphere_host_port_group" "port-group06" {
   vlan_id = 5
 }
 
-//// Inner_LAN
-resource "vsphere_host_port_group" "port-group07" {
-  name = "Management_LAN"
+//// Inner_LAN/*
+/*resource "vsphere_host_port_group" "port-group07" {
+  name = "DevOps_LAN"
   host_system_id = data.vsphere_host.esxi_host.id
   virtual_switch_name = "vSwitch0"
   vlan_id = 7
-}
+}*/

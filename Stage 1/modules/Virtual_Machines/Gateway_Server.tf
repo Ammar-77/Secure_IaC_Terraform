@@ -25,8 +25,8 @@ data "vsphere_network" "ISPs_LAN" {
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
 }
 
-data "vsphere_network" "Management_LAN" {
-  name          = "Management_LAN"
+data "vsphere_network" "DevOps_LAN" {
+  name          = "DevOps_LAN"
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
 } 
 /* the DevOps server should be on it after it is intlizaied with all the 
@@ -64,12 +64,12 @@ resource "vsphere_virtual_machine" "Gateway_Server" {
     network_id = data.vsphere_network.Shadow_LAN.id
   }
   
-  network_interface {
+ /* network_interface {
     network_id = data.vsphere_network.ISPs_LAN.id
   }
-
+*/
   network_interface {
-    network_id = data.vsphere_network.Management_LAN.id
+    network_id = data.vsphere_network.DevOps_LAN.id
   } 
 
 

@@ -20,7 +20,9 @@ resource "vsphere_virtual_machine" "ISP" {
   network_interface {
     network_id = data.vsphere_network.Web_LAN.id
   }
-
+network_interface {
+    network_id = data.vsphere_network.Backend_LAN.id
+  }
  disk {
     label = "disk0"
     size  = 60
