@@ -10,7 +10,7 @@ resource "vsphere_virtual_machine" "App_Server01" {
   resource_pool_id = data.vsphere_host.esxi_host.resource_pool_id
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = 2
-  memory           = 4096
+  memory           = 2048
   guest_id         = "other3xLinux64Guest"
   network_interface {
     network_id = data.vsphere_network.APPs_LAN.id
