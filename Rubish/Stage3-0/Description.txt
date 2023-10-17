@@ -1,0 +1,3 @@
+This stage  is to convert the VMs create to a templates using vCenter .
+ After that the stage3-1 will clone the templates ...
+

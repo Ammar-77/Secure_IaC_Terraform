@@ -12,7 +12,7 @@ resource "vsphere_virtual_machine" "DB_Server01" {
   datastore_id     = data.vsphere_datastore.datastore.id
   num_cpus         = 2
   memory           = 2048
- guest_id         = "other3xLinux64Guest"
+ guest_id         = "rhel7_64Guest"// "other3xLinux64Guest"
   network_interface {
     network_id = data.vsphere_network.DBs_LAN.id
   }
