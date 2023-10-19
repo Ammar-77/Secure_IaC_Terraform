@@ -57,7 +57,7 @@ resource "vsphere_virtual_machine" "APP_Server02" {
     name             = "APP_Server02"
     num_cpus         = 2
     memory           = 1024
-    guest_id         = "centos64Guest"  /// for CentOS
+    guest_id         =  "centos64Guest"  /// for CentOS
     resource_pool_id = data.vsphere_host.esxi_host.resource_pool_id
     host_system_id   = "${data.vsphere_host.esxi_host.id}"  # Replace with your ESXi host ID
     datastore_id     = data.vsphere_datastore.datastore.id
@@ -71,22 +71,40 @@ resource "vsphere_virtual_machine" "APP_Server02" {
  
    network_interface {
     network_id = data.vsphere_network.APPs_LAN.id
-       adapter_type = data.vsphere_virtual_machine.APP_Template.network_interface_types[0]
-  
+    adapter_type  =  data.vsphere_virtual_machine.APP_Template.network_interface_types[0]
+       
   }
   clone {
         template_uuid = data.vsphere_virtual_machine.APP_Template.id
-     customize {
+   /* customize {
       linux_options {
-        host_name = "app-server02"
-        domain=""
+        host_name = "appserver02"
+       domain=""
       }
-       network_interface { }
-     }
+
+      network_interface {
+        ipv4_address = "120.20.10.244"
+        ipv4_netmask = 24
+      }
+      ipv4_gateway = "120.20.10.1"
+     }*/
+  }
+
+provisioner "remote-exec" {
+    inline = [
+      "sudo hostnamectl set-hostname app-server02" ,
+      "sudo systemctl restart systemd-hostnamed"
+    ]
+
+    connection {
+       type     = "ssh"
+       host     = self.default_ip_address
+       user     = "root"
+       password = "hardtoguess1"  # Note: It's more secure to use SSH keys
+    }
   }
 
   }
-
 
 
 resource "vsphere_virtual_machine" "APP_Server03" {
@@ -113,25 +131,11 @@ resource "vsphere_virtual_machine" "APP_Server03" {
 
   clone {
         template_uuid = data.vsphere_virtual_machine.APP_Template.id
-     customize {
-      linux_options {
-        host_name = "app-server03"
-        domain=""
-      }
-       network_interface { }
-     }
-  }
+   }
 
-  }
-
-
-  
-
-
-  /*
  provisioner "remote-exec" {
     inline = [
-      "sudo hostnamectl set-hostname APP_Server01" ,
+      "sudo hostnamectl set-hostname app-server03" ,
       "sudo systemctl restart systemd-hostnamed"
     ]
 
@@ -142,4 +146,5 @@ resource "vsphere_virtual_machine" "APP_Server03" {
        password = "hardtoguess1"  # Note: It's more secure to use SSH keys
     }
   }
-  */
+
+}
