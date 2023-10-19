@@ -16,7 +16,7 @@ data "vsphere_virtual_machine" "LD_Template" {
 }
 // ................VMs creation .....................
 
-/*
+
 resource "vsphere_virtual_machine" "APP_LoadBalancer01" {
     name             = "APP_LoadBalancer01"
     num_cpus         = 2
@@ -51,7 +51,7 @@ resource "vsphere_virtual_machine" "APP_LoadBalancer01" {
 
   }
 
-*/
+
 
 resource "vsphere_virtual_machine" "APP_Server02" {
     name             = "APP_Server02"

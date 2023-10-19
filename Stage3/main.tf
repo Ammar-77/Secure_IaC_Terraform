@@ -19,6 +19,10 @@ data "vsphere_host" "esxi_host" {
 }
 
 
+
+
+
+
 module "Virtual_Networks" {
   source = "./modules/Virtual_Machines"
 }

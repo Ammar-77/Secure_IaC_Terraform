@@ -1,5 +1,5 @@
 
-/*
+
 data "vsphere_network" "DBs_LAN" {
   name          = "DBs_LAN"
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"

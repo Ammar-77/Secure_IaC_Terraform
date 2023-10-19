@@ -1,5 +1,5 @@
 
-/* 
+
 data "vsphere_network" "Web_LAN" {
   name          = "Web_LAN"
   datacenter_id = "${data.vsphere_datacenter.datacenter.id}"
@@ -9,12 +9,12 @@ data "vsphere_virtual_machine" "Web_Template" {
   name          = "Web_Template"
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
-
+/*
 data "vsphere_virtual_machine" "LD_Template" {
   name          = "LD_Template"
   datacenter_id = data.vsphere_datacenter.datacenter.id
 }
-
+*/
 // ................VMs creation .....................
 
 resource "vsphere_virtual_machine" "Web_LoadBalancer01" {
@@ -122,5 +122,3 @@ resource "vsphere_virtual_machine" "Web_Server03" {
 
   }
   }
-
-*/
