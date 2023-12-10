@@ -1,7 +1,0 @@
-This stage stage 12  is resposible of 
-creating the bascis servers (three serveres DB01 , APP01 , Web01 ) a
-nd load_balancer01 which in turn will be configure to let the stage 3 process 
- to clone them and and configure the copies of these resources to the other VLANs.
- 
-  
-
